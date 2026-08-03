@@ -129,6 +129,9 @@ function updateReplaceUI() {
 if (replaceSelect) replaceSelect.addEventListener("change", updateReplaceUI);
 if (replaceTypeSelect) replaceTypeSelect.addEventListener("change", updateReplaceUI);
 
+// Initial UI check on page load
+updateReplaceUI();
+
 // Event handler Perubahan Brand OLT
 brandSelect.addEventListener("change", () => {
   const selected = brandSelect.value;
