@@ -115,20 +115,20 @@
       <!-- Main Form Body (Hidden initially until brand is selected) -->
       <div id="formContent" class="form-content-wrapper hidden">
 
-        <!-- Card 0: Mode Konfigurasi (Replace / Registrasi Baru) -->
+        <!-- Unified Card: Form Konfigurasi ONT -->
         <article class="card">
           <div class="card-header">
             <div class="card-header-icon">
-              <i class="fa-solid fa-arrows-rotate"></i>
+              <i class="fa-solid fa-sliders"></i>
             </div>
             <div>
-              <h2 class="card-title">Jenis Konfigurasi</h2>
-              <p class="card-subtitle">Pilih registrasi baru atau ganti ONT (replace)</p>
+              <h2 class="card-title">Form Konfigurasi ONT</h2>
+              <p class="card-subtitle">Lengkapi parameter di bawah ini untuk membuat skrip registrasi OLT</p>
             </div>
           </div>
 
           <div class="form-grid">
-            <!-- Replace ONT Select -->
+            <!-- Mode Konfigurasi / Replace -->
             <div class="form-group form-grid-full">
               <label for="replace">
                 <i class="fa-solid fa-arrows-rotate"></i> Ganti ONT ? (Replace)
@@ -149,53 +149,26 @@
                 <option value="change_port">Ganti Port (Pindah FAT)</option>
               </select>
             </div>
-          </div>
-        </article>
 
-        <!-- Card: Customer Metadata -->
-        <article class="card" id="customerCard">
-          <div class="card-header">
-            <div class="card-header-icon">
-              <i class="fa-solid fa-user-gear"></i>
-            </div>
-            <div>
-              <h2 class="card-title">Customer Details</h2>
-              <p class="card-subtitle">Identitas dan Service ID pelanggan</p>
-            </div>
-          </div>
+            <!-- Customer Details Wrapper (Disembunyikan jika Replace Port Sama) -->
+            <div id="customerCard" class="form-grid-full form-grid" style="grid-column: 1 / -1; margin: 0; padding: 0;">
+              <!-- Customer Name -->
+              <div class="form-group">
+                <label for="nama">
+                  <i class="fa-solid fa-user"></i> Customer Name
+                </label>
+                <input type="text" id="nama" placeholder="Masukkan nama pelanggan" required />
+              </div>
 
-          <div class="form-grid">
-            <!-- Customer Name -->
-            <div class="form-group">
-              <label for="nama">
-                <i class="fa-solid fa-user"></i> Customer Name
-              </label>
-              <input type="text" id="nama" placeholder="Masukkan nama pelanggan" required />
+              <!-- Service ID (SID) -->
+              <div class="form-group">
+                <label for="sid">
+                  <i class="fa-solid fa-id-card"></i> SID (Service ID)
+                </label>
+                <input type="text" id="sid" placeholder="Contoh: 16258930" required />
+              </div>
             </div>
 
-            <!-- Service ID (SID) -->
-            <div class="form-group">
-              <label for="sid">
-                <i class="fa-solid fa-id-card"></i> SID (Service ID)
-              </label>
-              <input type="text" id="sid" placeholder="Contoh: 16258930" required />
-            </div>
-          </div>
-        </article>
-
-        <!-- Card 2: Security & Credentials -->
-        <article class="card">
-          <div class="card-header">
-            <div class="card-header-icon">
-              <i class="fa-solid fa-key"></i>
-            </div>
-            <div>
-              <h2 class="card-title">Authentication & Password</h2>
-              <p class="card-subtitle">Atur kredensial akses PPPoE</p>
-            </div>
-          </div>
-
-          <div class="form-grid">
             <!-- Auto Password Toggle -->
             <div class="form-group">
               <label for="autoPassword">
@@ -214,22 +187,7 @@
               </label>
               <input type="text" id="password" placeholder="Password PPPoE" readonly />
             </div>
-          </div>
-        </article>
 
-        <!-- Card 3: Network & Hardware Settings -->
-        <article class="card">
-          <div class="card-header">
-            <div class="card-header-icon">
-              <i class="fa-solid fa-diagram-project"></i>
-            </div>
-            <div>
-              <h2 class="card-title">PON & Port Configuration</h2>
-              <p class="card-subtitle">Spesifikasi Serial Number, VLAN, dan Interface</p>
-            </div>
-          </div>
-
-          <div class="form-grid">
             <!-- Serial Number -->
             <div class="form-group form-grid-full">
               <label for="sn">
@@ -258,10 +216,8 @@
               <span id="vlanHint" class="field-hint">Wajib berupa angka (contoh: 2900)</span>
             </div>
 
-
-
             <!-- Dynamic Fields Container (Populated by script.js) -->
-            <div id="dynamicFields"></div>
+            <div id="dynamicFields" class="form-grid-full"></div>
           </div>
         </article>
 
