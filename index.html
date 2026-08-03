@@ -115,8 +115,45 @@
       <!-- Main Form Body (Hidden initially until brand is selected) -->
       <div id="formContent" class="form-content-wrapper hidden">
 
-        <!-- Card: Customer Metadata -->
+        <!-- Card 0: Mode Konfigurasi (Replace / Registrasi Baru) -->
         <article class="card">
+          <div class="card-header">
+            <div class="card-header-icon">
+              <i class="fa-solid fa-arrows-rotate"></i>
+            </div>
+            <div>
+              <h2 class="card-title">Jenis Konfigurasi</h2>
+              <p class="card-subtitle">Pilih registrasi baru atau ganti ONT (replace)</p>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <!-- Replace ONT Select -->
+            <div class="form-group form-grid-full">
+              <label for="replace">
+                <i class="fa-solid fa-arrows-rotate"></i> Ganti ONT ? (Replace)
+              </label>
+              <select id="replace">
+                <option value="false">Tidak (Registrasi Baru)</option>
+                <option value="true">Ya (Replace ONT)</option>
+              </select>
+            </div>
+
+            <!-- Tipe Replace ONT Select (Hanya muncul jika Replace = Ya) -->
+            <div class="form-group form-grid-full" id="replaceTypeGroup" style="display: none;">
+              <label for="replaceType">
+                <i class="fa-solid fa-sliders"></i> Tipe Replace ONT
+              </label>
+              <select id="replaceType">
+                <option value="same_port">Replace dengan Port yang Sama</option>
+                <option value="change_port">Ganti Port (Pindah FAT)</option>
+              </select>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card: Customer Metadata -->
+        <article class="card" id="customerCard">
           <div class="card-header">
             <div class="card-header-icon">
               <i class="fa-solid fa-user-gear"></i>
@@ -221,16 +258,7 @@
               <span id="vlanHint" class="field-hint">Wajib berupa angka (contoh: 2900)</span>
             </div>
 
-            <!-- Replace ONT Select -->
-            <div class="form-group form-grid-full">
-              <label for="replace">
-                <i class="fa-solid fa-arrows-rotate"></i> Ganti ONT ? (Replace)
-              </label>
-              <select id="replace">
-                <option value="false">Tidak</option>
-                <option value="true">Ya</option>
-              </select>
-            </div>
+
 
             <!-- Dynamic Fields Container (Populated by script.js) -->
             <div id="dynamicFields"></div>

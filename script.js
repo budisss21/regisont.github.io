@@ -93,6 +93,41 @@ if (vlanInput) {
   vlanInput.addEventListener("input", () => validateNumericField(vlanInput, "VLAN"));
 }
 
+// Toggle Tipe Replace ONT Group & Dynamic Field Visibility
+const replaceSelect = document.getElementById("replace");
+const replaceTypeSelect = document.getElementById("replaceType");
+const replaceTypeGroup = document.getElementById("replaceTypeGroup");
+
+function updateReplaceUI() {
+  const isReplace = replaceSelect?.value === "true";
+  const replaceType = replaceTypeSelect?.value;
+  const isSamePort = isReplace && replaceType === "same_port";
+
+  if (replaceTypeGroup) {
+    replaceTypeGroup.style.display = isReplace ? "block" : "none";
+  }
+
+  const customerCard = document.getElementById("customerCard");
+  if (customerCard) {
+    customerCard.style.display = isSamePort ? "none" : "block";
+    const namaInput = document.getElementById("nama");
+    const sidInput = document.getElementById("sid");
+    if (namaInput) namaInput.required = !isSamePort;
+    if (sidInput) sidInput.required = !isSamePort;
+  }
+
+  if (dynamicFields) {
+    dynamicFields.style.display = isSamePort ? "none" : "block";
+    const servicePortInput = document.getElementById("servicePort");
+    const lineProfileInput = document.getElementById("lineProfileHuawei");
+    if (servicePortInput) servicePortInput.required = !isSamePort;
+    if (lineProfileInput) lineProfileInput.required = !isSamePort;
+  }
+}
+
+if (replaceSelect) replaceSelect.addEventListener("change", updateReplaceUI);
+if (replaceTypeSelect) replaceTypeSelect.addEventListener("change", updateReplaceUI);
+
 // Event handler Perubahan Brand OLT
 brandSelect.addEventListener("change", () => {
   const selected = brandSelect.value;
@@ -188,16 +223,26 @@ document.getElementById("regisForm").addEventListener("submit", function (e) {
 
   const sid = document.getElementById("sid").value;
   const sn = snInput.value.trim().toUpperCase();
-  const nama = document.getElementById("nama").value.toUpperCase().replace(/\s+/g, ".");
+  const namaElem = document.getElementById("nama");
+  const nama = namaElem && namaElem.value ? namaElem.value.toUpperCase().replace(/\s+/g, ".") : "";
   const brand = brandSelect.value;
   const fspInput = document.getElementById("fsp").value;
   const vlan = document.getElementById("vlan").value.trim();
   const password = document.getElementById("password").value;
   const isReplace = document.getElementById("replace").value === "true";
+  const replaceType = document.getElementById("replaceType")?.value;
+  const isSamePort = isReplace && replaceType === "same_port";
 
-  if (!sid || !sn || !nama || !fspInput || !vlan || !password) {
-    alert("⚠️ Semua kolom wajib diisi!!! .");
-    return;
+  if (isSamePort) {
+    if (!sn || !fspInput || !vlan || !password) {
+      alert("⚠️ Kolom F/S/P/ONT ID, SN, VLAN, dan Password wajib diisi!!!");
+      return;
+    }
+  } else {
+    if (!sid || !sn || !nama || !fspInput || !vlan || !password) {
+      alert("⚠️ Semua kolom wajib diisi!!!");
+      return;
+    }
   }
 
   // Validasi VLAN Hanya Boleh Angka
@@ -238,6 +283,22 @@ document.getElementById("regisForm").addEventListener("submit", function (e) {
 
   // Huawei
   if (brand === "Huawei") {
+    const replaceType = document.getElementById("replaceType")?.value;
+
+    if (isReplace && replaceType === "same_port") {
+      config += `config\n`;
+      config += `interface gpon ${f}/${s}\n\n`;
+      config += `ont modify ${p} ${ont_id} sn ${sn}\n\n`;
+      config += `ont ipconfig ${p} ${ont_id} pppoe vlan ${vlan} priority 0 user-account username ${sn} password ${password}\n\n`;
+      config += `quit\n\n`;
+      config += `save`;
+
+      document.getElementById("configResult").textContent = config;
+      document.getElementById("output").style.display = "block";
+      document.getElementById("output").scrollIntoView({ behavior: "smooth" });
+      return;
+    }
+
     const servicePort = document.getElementById("servicePort")?.value;
     const lineProfile = document.getElementById("lineProfileHuawei")?.value.trim();
 
@@ -491,6 +552,7 @@ document.getElementById("resetBtn").addEventListener("click", () => {
   document.getElementById("regisForm").reset();
   brandSelect.value = "";
   brandSelect.dispatchEvent(new Event("change"));
+  updateReplaceUI();
   document.getElementById("output").style.display = "none";
   document.getElementById("configResult").textContent = "";
   document.getElementById("dynamicFields").innerHTML = "";
