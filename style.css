@@ -710,6 +710,36 @@ button#resetBtn:hover {
   border-color: var(--accent);
 }
 
+.terminal-footer {
+  padding: 1rem 1.25rem;
+  background-color: #0F172A;
+  border-top: 1px solid #1E293B;
+}
+
+.copy-btn-full {
+  width: 100%;
+  padding: 0.95rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  color: var(--text-inverse);
+  border: none;
+  border-radius: var(--radius-btn);
+  box-shadow: 0 4px 14px rgba(0, 91, 172, 0.3);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all var(--transition-normal);
+}
+
+.copy-btn-full:hover {
+  background: linear-gradient(135deg, var(--primary-hover) 0%, var(--accent-hover) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 91, 172, 0.4);
+}
+
 /* Pre / Code Display */
 pre, #configResult {
   background-color: transparent;

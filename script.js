@@ -99,17 +99,18 @@ const replaceTypeSelect = document.getElementById("replaceType");
 const replaceTypeGroup = document.getElementById("replaceTypeGroup");
 
 function updateReplaceUI() {
+  const isHuawei = brandSelect?.value === "Huawei";
   const isReplace = replaceSelect?.value === "true";
   const replaceType = replaceTypeSelect?.value;
-  const isSamePort = isReplace && replaceType === "same_port";
+  const isSamePort = isHuawei && isReplace && replaceType === "same_port";
 
   if (replaceTypeGroup) {
-    replaceTypeGroup.style.display = isReplace ? "block" : "none";
+    replaceTypeGroup.style.display = (isHuawei && isReplace) ? "block" : "none";
   }
 
   const customerCard = document.getElementById("customerCard");
   if (customerCard) {
-    customerCard.style.display = isSamePort ? "none" : "block";
+    customerCard.style.display = isSamePort ? "none" : "grid";
     const namaInput = document.getElementById("nama");
     const sidInput = document.getElementById("sid");
     if (namaInput) namaInput.required = !isSamePort;
@@ -176,6 +177,8 @@ brandSelect.addEventListener("change", () => {
     updateFspFormat("");
     document.getElementById("output").style.display = "none";
   }
+
+  updateReplaceUI();
 });
 
 

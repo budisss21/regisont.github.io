@@ -70,27 +70,22 @@
         <!-- Brand Tiles Grid -->
         <div class="brand-grid">
           <div class="brand-tile" data-brand="Huawei">
-            <div class="brand-tile-icon"><i class="fa-solid fa-server"></i></div>
             <div class="brand-tile-name">Huawei</div>
             <div class="brand-tile-desc">F/S/P/ONT_ID</div>
           </div>
           <div class="brand-tile" data-brand="Raisecom">
-            <div class="brand-tile-icon"><i class="fa-solid fa-network-wired"></i></div>
             <div class="brand-tile-name">Raisecom</div>
             <div class="brand-tile-desc">F/S/ONT_ID</div>
           </div>
           <div class="brand-tile" data-brand="ZTE_C320">
-            <div class="brand-tile-icon"><i class="fa-solid fa-microchip"></i></div>
             <div class="brand-tile-name">ZTE C320</div>
             <div class="brand-tile-desc">F/S/P/ONT_ID</div>
           </div>
           <div class="brand-tile" data-brand="ZTE_C610">
-            <div class="brand-tile-icon"><i class="fa-solid fa-cubes"></i></div>
             <div class="brand-tile-name">ZTE C610</div>
             <div class="brand-tile-desc">F/S/P/ONT_ID</div>
           </div>
           <div class="brand-tile" data-brand="BDCOM">
-            <div class="brand-tile-icon"><i class="fa-solid fa-ethernet"></i></div>
             <div class="brand-tile-name">BDCOM</div>
             <div class="brand-tile-desc">F/S</div>
           </div>
@@ -246,13 +241,13 @@
               <i class="fa-solid fa-terminal"></i> olt-script-output.cli
             </span>
           </div>
-          <div class="terminal-actions">
-            <button type="button" class="copy-btn" onclick="copyConfig()">
-              <i class="fa-regular fa-copy"></i> Salin Konfigurasi
-            </button>
-          </div>
         </div>
         <pre id="configResult"></pre>
+        <div class="terminal-footer">
+          <button type="button" class="copy-btn copy-btn-full" onclick="copyConfig()">
+            <i class="fa-regular fa-copy"></i> Salin Konfigurasi
+          </button>
+        </div>
       </div>
     </section>
 
