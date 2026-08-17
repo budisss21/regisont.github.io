@@ -381,7 +381,7 @@ document.getElementById("regisForm").addEventListener("submit", function (e) {
     config += `config\n`;
     config += `interface gpon-olt ${f}/${s}\n`;
     if (isReplace) config += `no create gpon-onu ${ont_id}\n`;
-    config += `create gpon-onu ${ont_id} sn ${sn} line-profile-id ${lineProfile} service-profile-id 1\n`;
+    config += `create gpon-onu ${ont_id} sn ${sn} line-profile-id ${lineProfile} service-profile-name ACS-v2\n`;
     config += `quit\n`;
     config += `interface gpon-onu ${f}/${s}/${ont_id}\n`;
     config += `description ${sid}-${nama}\nquit\n`;
