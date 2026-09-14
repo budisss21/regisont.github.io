@@ -429,10 +429,13 @@ document.getElementById("regisForm").addEventListener("submit", function (e) {
     // PON ONU MNG
     config += `pon-onu-mng gpon-onu_${f}/${s}/${p}:${ont_id}\n`;
     config += `service HSI gemport 1 vlan ${vlan}\n`;
+    config += `service ACS gemport 2 vlan ${vlan_acs}\n`;
     config += `wan-ip 1 mode pppoe username ${sn} password ${password} vlan-profile vlan${vlan} host 1\n`;
     config += `wan-ip 2 mode dhcp vlan-profile vlan${vlan_acs} host 2\n`; // Tambahan WAN IP 2 untuk TR069
     config += `vlan port eth_0/1 mode tag vlan ${vlan}\n`;
     config += `vlan port eth_0/2 mode tag vlan ${vlan}\n`; // Tambahan tag VLAN untuk eth_0/2
+    config += `veip 1 inter-domain omci_ipv4_dhcp_2\n`;
+    config += `veip 1 port udp 2 host 2\n`;
 
     // Tambahan Konfigurasi TR069 dan Binding WAN
     config += `tr069-mgmt 1 state unlock\n`;
@@ -446,7 +449,7 @@ document.getElementById("regisForm").addEventListener("submit", function (e) {
     // config += `dhcp-ip ethuni eth_0/1 from-onu\n`;
 
     config += `end\n`;
-    config += `save\n`;
+    config += `write\n`;
   }
 
   // ZTE_C610
@@ -474,7 +477,7 @@ document.getElementById("regisForm").addEventListener("submit", function (e) {
 
     // VPORT 2 untuk ACS (Management TR069) - Khas C610/C600
     config += `interface vport-${f}/${s}/${p}.${ont_id}:2\n`;
-    config += `service-port 1 user-vlan ${vlan_acs} vlan ${vlan_acs}\n`;
+    config += `service-port 2 user-vlan ${vlan_acs} vlan ${vlan_acs}\n`;
     config += `exit\n`;
 
     // PON ONU MNG
@@ -499,7 +502,7 @@ document.getElementById("regisForm").addEventListener("submit", function (e) {
     config += `dhcp-ip ethuni eth_0/1 from-onu\n`;
     config += `dhcp-ip ethuni eth_0/2 from-onu\n`;
     config += `end\n`;
-    config += `save\n`;
+    config += `write\n`;
   }
 
   // BDCOM
